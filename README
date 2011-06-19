@@ -1,6 +1,7 @@
 THE MOLECULAR SOUNDRY
 
-Taking molecular spectra and examining new ways of understanding them, their dynamics, and their evolution. 
-Starting with basic atomic spectra and working up to more interesting structures.
+This project grew out of a simple question that came to it's creator one day: What does hydrogen sound like? 
+
+The first part of this project is to take the absorption spectra from basic atomic structures and find new ways of understanding them- their dynamics and their evolution. 
 
 The program of choice is Supercollider 

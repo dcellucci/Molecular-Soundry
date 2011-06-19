@@ -1,0 +1,6 @@
+The atomic section
+
+So you know that photons have a frequency, which we normally translate into a specific color, right? 
+Well the outermost electrons of an atom (called the valence electrons) can interact with the light, but only certain frequencies. See, an electrons energy levels aren't continuous, they are stepped, like a ladder. So to go from one step to another requires a certain amount of energy. If the frequency of the light is just right, then the electron will absorb that photon, jump up to the next energy level, then fall back down and emit the photon. The trouble is that is doesn't reemit the photon in a specific direction, but randomly, so when you observe a gas containing those atoms, the light will appear to have holes in it at specific frequencies. This is called the absorption spectrum of a gas.
+
+This program takes the absorption spectra of specific elements and maps them to frequencies of sound. In the initial case I am just working with sinusoidal waves, but I might make it up to more sophisticated functions later on. 
