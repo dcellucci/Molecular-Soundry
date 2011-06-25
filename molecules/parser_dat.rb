@@ -18,37 +18,19 @@
 #  print newname << " \n"
 #  } 
 
-output = File.open("atomic.sc", 'w')
-output.write("(")
+output = File.open("data/mod.1400.unrot.spec.total.912.txt", 'w')
 Dir.open("data")
 Dir.glob("**/*.dat").each {|filename|
   f = File.open(filename, 'r')
   spectlines = []
   total = 0
   f.readlines.each { |line|
+    puts(line)
     line = line.split(" ")
     line.map!{|i| i.to_f}
-    line[0] = 1.0/line[0]*2997924.58
-    total = total + line[1]
-    spectlines << line
+    line[1] = line[1] + 1.0
+    output.write("#{line[0].to_s.ljust(8)}  #{line[1].to_s.rjust(12)}\n")
   }
-  puts spectlines.length
-  f.close()
-  temp = "///////////////////////////////////////////////////"
-  form = "#{temp}\n//#{filename}\n#{temp}\n"
-  #form = form << "SynthDef.new(\"#{File.split(filename)[1].split(".dat")[0]}\",\{"
-  #form = form << "Out.ar(0,"
-  form = form << "a = ["
-  spectlines.each{|i|
-    form = form << "[#{i[0]}, #{(i[1]/total).to_s[0...8]}],"
-    #form = form << "SinOsc.ar(#{i[0]})*#{3.0/spectlines.length}+"
-  }
-  form = form[0...-1]
-  
-  #form = form << ";)\}).send(s);\n\n"
-  form = form << "];\n\n"
-  #puts form 
-  output.write(form)
+  f.close() 
 }
-output.write(")")
 output.close()
