@@ -21,13 +21,42 @@ include Math
 #} 
 
 
-Dir.open("data")
-Dir.glob("**/*.dat").each {|filename|
-
+f = File.open("data/conv2.1400.unrot.spec.total.912.txt", 'r')
+g = File.open("data/rp5.1400.unrot.spec.total.912.txt", 'w+')
+bigval = 0
+linenum = 0
+increment = 15
+f.readlines.each { |line|
+	linenum = linenum + 1
+	if(linenum%increment == 0 and linenum <= increment*600)
+		line = line.split(" ")
+		line.map!{|i| i.to_f}
+		val = Math.log(line[1])
+		if(val < bigval)
+			bigval = val
+		end
+	end
+}
+f.close
+f = File.open("data/conv2.1400.unrot.spec.total.912.txt", 'r')
+linenum = 0
+f.readlines.each { |line|
+	linenum = linenum + 1
+	line = line.split(" ")
+	line.map!{|i| i.to_f}
+	if(linenum%increment == 0 and linenum <= increment*600)
+		g.write("#{line[0].to_s.ljust(10)} #{(1.0-Math.log(line[1])/bigval).to_s.ljust(10)}\n")
+	end
+}	
+			
+		
+		
+		
+=begin
 	f = File.open(filename, 'r')
-	output = File.open("data/log.conv.1400.unrot.spec.total.912.txt", 'w+')
-	output2 = File.open("data/log.conv2.1400.unrot.spec.total.912.txt", 'w')
-#	output3 = File.open("data/slopedata.1400.unrot.spec.total.912.txt", 'w')
+	output = File.open("data/conv.1400.unrot.spec.total.912.txt", 'w+')
+	output2 = File.open("data/conv2.1400.unrot.spec.total.912.txt", 'w')
+	output3 = File.open("data/slopedata.1400.unrot.spec.total.912.txt", 'w')
 	g = File.open("data/peaks.1400.unrot.spec.total.912.txt",'w')
 	
 	spectlines = []
@@ -49,14 +78,14 @@ Dir.glob("**/*.dat").each {|filename|
 			conv = conv[1..-1]
 			conv.each{ |item| total = total+item/200.0}
 			output.write("#{line[0].to_s.ljust(8)} #{total.to_s.rjust(12)}\n")
-			if(total < bigval)
+			if(total > bigval)
 				bigval = total
 			end
 		end 
 	}
 	f.close() 
 	output.close()
-	output = File.open("data/log.conv.1400.unrot.spec.total.912.txt", 'r')
+	output = File.open("data/conv.1400.unrot.spec.total.912.txt", 'r')
 	output.readlines.each { |line|
 		line = line.split(" ")
 		line.map!{|i| i.to_f}
@@ -65,7 +94,7 @@ Dir.glob("**/*.dat").each {|filename|
 		peakindex = peakindex[1..-1]
 		slope.push(line[1]/bigval)
 		slope = slope[1..-1]
-		#output3.write("#{line[0].to_s.ljust(8)} #{((slope[1]-slope[0])/(peakindex[1]-peakindex[0])).to_s.rjust(12)}\n")
+		output3.write("#{line[0].to_s.ljust(8)} #{((slope[1]-slope[0])/(peakindex[1]-peakindex[0])).to_s.rjust(12)}\n")
 =begin
 		peak.push(line[1]/bigval)
 		if(peak.length > 3)
@@ -78,10 +107,11 @@ Dir.glob("**/*.dat").each {|filename|
 				puts peaks
 			end
 		end
-=end
+
 	}
 	g.close()
 	output.close()
 }
+=end
 
 
