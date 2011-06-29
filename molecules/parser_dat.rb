@@ -1,5 +1,7 @@
 #! /usr/bin/ruby
 
+include Math
+require 'narray'
 #This script reads the spectra files located in the data/ 
 #directory and outputs a supercollider file that uses the
 #information contained within to generate sounds. Each sp
@@ -28,7 +30,8 @@ Dir.glob("**/*.dat").each {|filename|
     puts(line)
     line = line.split(" ")
     line.map!{|i| i.to_f}
-    line[1] = line[1] + 1.0
+    line[1] = line[1]+1.0
+    line[1] = Math.log(line[1])
     output.write("#{line[0].to_s.ljust(8)}  #{line[1].to_s.rjust(12)}\n")
   }
   f.close() 
