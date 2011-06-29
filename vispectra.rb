@@ -9,7 +9,7 @@ class Vispectra < Processing::App
     f.readlines.each {|line|
     	line = line.split(" ")
     	line.map!{|i| i.to_f}
-    	line[1] = Math.log(line[1]+1)
+#    	line[1] = line[1]+1
     	@bwvals << line
     }
     background 0
@@ -18,11 +18,12 @@ class Vispectra < Processing::App
   
   def draw
 #    ratio = Math.log(pmouse_x+1)/Math.log(601.0)
-    ratio = pmouse_x/600.0
+    ratio = pmouse_x/1200.0
+#     ratio = 0.5
 #    background ratio*200+40
     background 255
-    (0...600).each {|i|
-    	if(Math.log(ratio+1) > @bwvals[i][1])
+    (0...1200).each {|i|
+    	if(ratio > @bwvals[i][1])
     		line(i,0,i,120)
     	end
     }
@@ -30,4 +31,4 @@ class Vispectra < Processing::App
   
 end
 
-Vispectra.new(:width => 600, :height => 120, :title => "Vispectra")
+Vispectra.new(:width => 1200, :height => 120, :title => "Vispectra")

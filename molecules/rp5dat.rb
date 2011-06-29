@@ -25,10 +25,10 @@ f = File.open("data/conv2.1400.unrot.spec.total.912.txt", 'r')
 g = File.open("data/rp5.1400.unrot.spec.total.912.txt", 'w+')
 bigval = 0
 linenum = 0
-increment = 15
+increment = 5
 f.readlines.each { |line|
 	linenum = linenum + 1
-	if(linenum%increment == 0 and linenum <= increment*600)
+	if(linenum%increment == 0 and linenum <= increment*1200)
 		line = line.split(" ")
 		line.map!{|i| i.to_f}
 		val = Math.log(line[1])
@@ -44,7 +44,7 @@ f.readlines.each { |line|
 	linenum = linenum + 1
 	line = line.split(" ")
 	line.map!{|i| i.to_f}
-	if(linenum%increment == 0 and linenum <= increment*600)
+	if(linenum%increment == 0 and linenum <= increment*1200)
 		g.write("#{line[0].to_s.ljust(10)} #{(1.0-Math.log(line[1])/bigval).to_s.ljust(10)}\n")
 	end
 }	
