@@ -40,13 +40,19 @@ Dir.glob("**/*.dat").each {|filename|
   #form = form << "Out.ar(0,"
   form = form << "a = ["
   spectlines.each{|i|
-    form = form << "[#{i[0]}, #{(i[1]/total).to_s[0...8]}],"
+    form = form << "#{i[0]}, "
     #form = form << "SinOsc.ar(#{i[0]})*#{3.0/spectlines.length}+"
   }
-  form = form[0...-1]
-  
+  form = form[0...-2]
   #form = form << ";)\}).send(s);\n\n"
-  form = form << "];\n\n"
+  form = form << "];\n"
+  
+  form = form << "b = ["
+  spectlines.each{|i|
+    form = form << "#{(i[1]/total).to_s[0...8]}, "
+  }
+  form = form[0...-2]
+  form = form << "];\n"
   #puts form 
   output.write(form)
 }
